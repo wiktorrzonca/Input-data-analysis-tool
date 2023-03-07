@@ -1,1 +1,1 @@
-# projektZespolowy
+#Input data analysis tool
