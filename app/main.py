@@ -9,7 +9,7 @@ if __name__ == "__main__":
     path = '/Users/janzemlo/Desktop/projekt-zespolowy'
     main_dda_file = Main_DDA_File(path,'marketdata.json')
     
-    List_true = []
+    dictonary_true = {}
     dda_mini_files = main_dda_file.get_individual_dda_files() 
     for key in dda_mini_files:
         exists, path = dda_mini_files[key]
@@ -17,7 +17,7 @@ if __name__ == "__main__":
         if(exists == True):
             obj = DDA_file(key,path)
             obj.dictonary()
-            List_true.append(obj)
+            dictonary_true[key] = obj
 
 
 
