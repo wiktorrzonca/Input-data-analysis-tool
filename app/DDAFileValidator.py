@@ -7,6 +7,8 @@ class DDAFileValidator:
         self.file_names = []
         self.file_exists = []
 
+    #Get the names of expected data sets
+    #Returns a list with file names and boolean values true - if they exist
     def validate_files(self, folder_path):
         with open(self.dda_file_path) as f:
             data = json.load(f)
@@ -20,3 +22,5 @@ class DDAFileValidator:
                 self.file_exists.append(exists)
 
         return list(zip(self.file_names, self.file_exists))
+
+        

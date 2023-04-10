@@ -1,21 +1,13 @@
-from app.DDAFile import DDAFile
-from app.DDAFileValidator import DDAFileValidator
+from Main_DDA_File import Main_DDA_File
+import sys
 
-
-class Main:
-    def __init__(self, file_name, file_location):
-        dda_file = DDAFile()
-        self.files_location = dda_file.find_dda_file(file_name, file_location)
-        self.dda_validator = DDAFileValidator(self.files_location)
-
-    def run(self):
-        # validate files
-        print("Validating files...")
-        file_list = self.dda_validator.validate_files(self.files_location)
-        for file_name, exists in file_list:
-            print(f"{file_name} exists: {exists}")
 
 
 if __name__ == "__main__":
-    main = Main("contoption", "C:\\Users\\micha\\Desktop\\Projekt grupowy")
-    main.run()
+    #path = sys.argv[1]
+    path = '/home/vboxuser/repos/data_analisys_tool/Input-data-analysis-tool/test_files'
+    main_dda_file = Main_DDA_File(path,'marketdata.json')
+    
+    dda_mini_files = main_dda_file.get_individual_dda_files() 
+    for key,val in dda_mini_files.items():
+        print(key,val)
