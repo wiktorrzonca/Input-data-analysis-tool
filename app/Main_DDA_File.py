@@ -36,7 +36,7 @@ class Main_DDA_File:
             file_name = file['name']
             file_path = os.path.join(os.path.dirname(self.dda_file_path), f"{file_name}.json")
             exists = os.path.isfile(file_path)
-            dda_mini_files[file_name] = exists
+            dda_mini_files[file_name] = (exists, f"{file_name}.json")
         return dda_mini_files
 
     
