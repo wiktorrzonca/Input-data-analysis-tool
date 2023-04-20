@@ -1,3 +1,4 @@
+import os
 import json
 from DDA_column import DDA_column
 
@@ -24,7 +25,7 @@ class Sub_DDA_file:
                     time_format = item['time_format']
                     obj = DDA_column(column_name, column_type, time_format, column_description, column_format)
                 else:
-                    obj = DDA_column(column_name, column_type,column_description = column_description, column_format = column_format)
+                    obj = DDA_column(column_name, column_type,None, column_description, column_format)
             else:
                 obj = DDA_column(column_name, column_type)
             self.columns[column_name] = obj
