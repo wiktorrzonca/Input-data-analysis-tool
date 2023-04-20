@@ -5,10 +5,8 @@ import sys
 if __name__ == "__main__":
     #dda_files_path = sys.argv[0]    #Chcieli zeby mozna bylo moc podawac sciezke jako argument
     #main_dda_file = sys.argv[1]
-    #dda_files_path = input("Podaj ścieżkę do plików: ")          #path to the folder with data files
-    #main_file_path = input("Podaj sciezke do głównego pliku: ")  #path to the main json file
-    dda_files_path = '/home/vboxuser/repos/data_analisys_tool/test_files'
-    main_file_path = '/home/vboxuser/repos/data_analisys_tool/test_files/marketdata.json'
+    dda_files_path = input("Podaj ścieżkę do plików: ")          #path to the folder with data files
+    main_file_path = input("Podaj sciezke do głównego pliku: ")  #path to the main json file
     main_dda_file = Main_DDA_File(dda_files_path, main_file_path)
 
     dictonary_true = {}
