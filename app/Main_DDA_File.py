@@ -1,12 +1,12 @@
 import os
 import json
-
 #Trzeba dopytac po czym bedziemy rozpoznawac ten glowny plik
 
 #Main DDA file is being serched for while initializing Main_DDA_File object
 class Main_DDA_File:
-    def __init__(self,folder_path, file_name):
-        self.dda_file_path = self.find_dda_file(folder_path, file_name)
+    def __init__(self, dda_files_path, main_file_path,):
+        self.file_path = main_file_path
+        self.dda_files_path = dda_files_path
 
     #Mam wrazenie ze aktualnie ta funkcja nie ma sensu bo bierze sciezke do folderu i pliku i zwraca to samo
     #ewentualnie wyrzuca blad jak nie znajdzie, ale mozemy ja zostawic bo w przyszlosciu mozemu tu wrzucic jakis 
@@ -27,17 +27,19 @@ class Main_DDA_File:
         return dda_file
     
 
-    #Iterates through datasets is main DDA file and checks if they exists for now in the same folder as main file
-    def get_individual_dda_files(self):
-        with open(self.dda_file_path, 'r') as main_file:
+    #Iterates through datasets in main DDA file and checks if they exists for now in the same folder as main file
+    #Returns a dictonary with dda names as keys and values with boolean values equal to true if the files exists and path to the file
+    def get_sub_dda_files(self):
+        with open(self.file_path, 'r') as main_file:
             dda_file = json.load(main_file)
-        dda_mini_files = {}
+
+        dda_sub_files = {}
         for file in dda_file['datasets']:
             file_name = file['name']
-            file_path = os.path.join(os.path.dirname(self.dda_file_path), f"{file_name}.json")
+            file_path = os.path.join(self.dda_files_path, f"{file_name}.json")
             exists = os.path.isfile(file_path)
-            dda_mini_files[file_name] = (exists, f"{file_name}.json")
-        return dda_mini_files
+            dda_sub_files[file_name] = (exists, file_path)
+        return dda_sub_files
 
     
     

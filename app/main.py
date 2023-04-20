@@ -1,18 +1,20 @@
 from Main_DDA_File import Main_DDA_File
-from DDA_file import DDA_file
+from Sub_DDA_file import Sub_DDA_file
 import sys
 
 if __name__ == "__main__":
-    path = input("Podaj ścieżkę do plików: ")
-    mainFile = input("Podaj nazwę głównego pliku: ")
-    main_dda_file = Main_DDA_File(path, mainFile)
+    #dda_files_path = sys.argv[0]    #Chcieli zeby mozna bylo moc podawac sciezke jako argument
+    #main_dda_file = sys.argv[1]
+    dda_files_path = input("Podaj ścieżkę do plików: ")          #path to the folder with data files
+    main_file_path = input("Podaj sciezke do głównego pliku: ")  #path to the main json file
+    main_dda_file = Main_DDA_File(dda_files_path, main_file_path)
 
     dictonary_true = {}
-    dda_mini_files = main_dda_file.get_individual_dda_files()
-    for key in dda_mini_files:
-        exists, path = dda_mini_files[key]
+    sub_dda_files = main_dda_file.get_sub_dda_files()
+    for key in sub_dda_files:
+        exists, path = sub_dda_files[key]
         print(key, exists)
         if (exists == True):
-            obj = DDA_file(key, path)
+            obj = Sub_DDA_file(key, path)
             obj.dictonary()
             dictonary_true[key] = obj
