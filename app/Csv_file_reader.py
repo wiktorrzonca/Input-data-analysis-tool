@@ -28,57 +28,57 @@ class Csv_file_reader:
         return missing_files #zwracana jest lista plikow ktorych brakuje, jak są wszystkie to zwraca pusta liste
 
     def validate_file(self, columns, csv_path):
-        error_messages = []  # inicjalizacja pustej listy przechowującej komunikaty błędów
+        error_messages = []  # lista błędów walidacji
 
-        # Sprawdzenie ilości kolumn w pliku csv
+        # Otwórz plik CSV i wczytaj zawartość
         with open(csv_path, newline='') as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=',', quotechar='"')
-            headers = next(csv_reader)
+            headers = next(csv_reader)  # wczytaj pierwszy wiersz, który zawiera nagłówki kolumn
+
+            # Sprawdź czy liczba kolumn w pliku CSV jest taka sama jak w słowniku kolumn
             if len(headers) != len(columns):
                 error_messages.append(
                     "Number of columns in CSV file does not match the number of objects in dictionary_file.")
 
-            # Przejście po każdej kolumnie w pliku csv
-            header_count = 0
-            for column_name in columns :
-                # Sprawdzenie nazwy kolumny
+            # Iteruj po kolumnach i sprawdź czy ich nazwy zgadzają się z definicjami w słowniku kolumn
+            for header_count, column_name in enumerate(columns):
                 if headers[header_count] != columns[column_name].name:
                     error_messages.append(
                         f"Column name in CSV file ({headers[header_count]}) does not match the name in dictionary_file ({columns[column_name].name}).")
-                header_count +=1
-                # Sprawdzenie typu danych w kolumnie
+
                 expected_type = columns[column_name].type
-                next(csv_reader)  # pominięcie nagłówka
-                column_count= 0
+
+                # Iteruj po każdym wierszu w kolumnie i sprawdź typ wartości oraz poprawność formatu daty, jeśli dotyczy
                 for row in csv_reader:
-                    cell = row[header_count+column_count]
-                    print(f" type {expected_type}  a jest - {cell}")
-                    column_count+=1
+                    # Wyświetl typ oczekiwany oraz otrzymany dla danej kolumny i wiersza
+                    print(f" type {expected_type}  a jest - {row[header_count]}")
+
                     if expected_type == "INTEGER":
                         try:
-
-                            int(cell)
+                            int(row[header_count])
                         except ValueError:
-                            error_messages.append(f"Value in column {cell} is not an integer.")
+                            error_messages.append(f"Value in column {header_count} is not an integer.")
                     elif expected_type == "DOUBLE":
                         try:
-                            float(cell)
+                            float(row[header_count])
                         except ValueError:
-                            error_messages.append(f"Value in column {cell} is not a float.")
-                    elif expected_type == "bool":
-                        if cell.lower() not in ["true", "false"]:
-                            error_messages.append(f"Value in column {cell} is not a boolean.")
+                            error_messages.append(f"Value in column {header_count} is not a DOUBLE.")
                     elif expected_type == "STRING":
-                        pass  # wszystko jest dozwolone
-
-                    # Sprawdzenie formatu czasu/daty
+                        if row[header_count].isnumeric():
+                            error_messages.append(f"Value in column {header_count} is not a STRING.")
+                    #TU JEST ŹLE NIE DZIAŁA DLA DOBER DATY POKAZUJE ŻE JEST ZŁA DATA
                     if columns[column_name].time_format is not None:
                         try:
-                            datetime.datetime.strptime(cell, columns[column_name].time_format)
+                            datetime.datetime.strptime(row[header_count], columns[column_name].time_format)
                         except ValueError:
                             error_messages.append(
-                                f"Value in column {cell} does not match the time format in dictionary_file ({columns[column_name].time_format}).")
+                                f"Value in column {header_count} does not match the time format in dictionary_file ({columns[column_name].time_format}).")
 
-        if error_messages:  # jeśli lista błędów nie jest pusta, to rzuć wyjątek z listą błędów
+                csvfile.seek(0)
+                next(csv_reader)  # pomiń nagłówek dla kolejnych kolumn
+
+        # Jeśli istnieją błędy walidacji, rzuć wyjątek z listą błędów
+        if error_messages:
             raise ValueError('\n'.join(error_messages))
+
 

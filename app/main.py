@@ -44,7 +44,6 @@ if __name__ == "__main__":
     ###GOES THROUGH EACH CSV FILE AND DETECS IF THERE ARE ANY POSSIBLE ERRORS
     #for sub_key_name in dictonary_sub:
 
-
     csv_reader.validate_file(dictonary_sub["contoption"].columns,csv_path)
 
     ###THE PROGRAM OUTPUTS THE LOG
