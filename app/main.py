@@ -37,7 +37,7 @@ if __name__ == "__main__":
     #for file in csv_reader.check_files():
         #print(file)
     ###GOES THROUGH EACH CSV FILE AND DETECS IF THERE ARE ANY POSSIBLE ERRORS
-    csv_reader.validate_files()
+    csv_reader.validate_files(dictonary_true,csv_path)
 
     ###THE PROGRAM OUTPUTS THE LOG
     #TODO
