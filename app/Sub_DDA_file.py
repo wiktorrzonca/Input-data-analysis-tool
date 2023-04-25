@@ -29,3 +29,4 @@ class Sub_DDA_file:
             else:
                 obj = DDA_column(column_name, column_type)
             self.columns[column_name] = obj
+

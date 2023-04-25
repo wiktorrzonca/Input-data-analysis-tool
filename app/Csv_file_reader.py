@@ -26,49 +26,59 @@ class Csv_file_reader:
                 if not os.path.isfile(self.json_path + file_json):
                     missing_files.append(file) 
         return missing_files #zwracana jest lista plikow ktorych brakuje, jak są wszystkie to zwraca pusta liste
-    def validate_files(self,dictionary_true, csv_path):
+
+    def validate_file(self, columns, csv_path):
+        error_messages = []  # inicjalizacja pustej listy przechowującej komunikaty błędów
+
         # Sprawdzenie ilości kolumn w pliku csv
         with open(csv_path, newline='') as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=',', quotechar='"')
             headers = next(csv_reader)
-            if len(headers) != len(dictionary_true):
-                raise ValueError(
+            if len(headers) != len(columns):
+                error_messages.append(
                     "Number of columns in CSV file does not match the number of objects in dictionary_file.")
 
             # Przejście po każdej kolumnie w pliku csv
-            for index, column in enumerate(headers):
+            header_count = 0
+            for column_name in columns :
                 # Sprawdzenie nazwy kolumny
-                if column != dictionary_true[index].name:
-                    raise ValueError(
-                        f"Column name in CSV file ({column}) does not match the name in dictionary_file ({dictionary_true[index].name}).")
-
+                if headers[header_count] != columns[column_name].name:
+                    error_messages.append(
+                        f"Column name in CSV file ({headers[header_count]}) does not match the name in dictionary_file ({columns[column_name].name}).")
+                header_count +=1
                 # Sprawdzenie typu danych w kolumnie
-                expected_type = dictionary_true[index].type
-                with open(csv_path, newline='') as csvfile:
-                    csv_reader = csv.reader(csvfile, delimiter=',', quotechar='"')
-                    next(csv_reader)  # pominięcie nagłówka
-                    for row in csv_reader:
-                        cell = row[index]
-                        if expected_type == "int":
-                            try:
-                                int(cell)
-                            except ValueError:
-                                raise ValueError(f"Value in column {column} is not an integer.")
-                        elif expected_type == "float":
-                            try:
-                                float(cell)
-                            except ValueError:
-                                raise ValueError(f"Value in column {column} is not a float.")
-                        elif expected_type == "bool":
-                            if cell.lower() not in ["true", "false"]:
-                                raise ValueError(f"Value in column {column} is not a boolean.")
-                        elif expected_type == "string":
-                            pass  # wszystko jest dozwolone
+                expected_type = columns[column_name].type
+                next(csv_reader)  # pominięcie nagłówka
+                column_count= 0
+                for row in csv_reader:
+                    cell = row[header_count+column_count]
+                    print(f" type {expected_type}  a jest - {cell}")
+                    column_count+=1
+                    if expected_type == "INTEGER":
+                        try:
 
-                        # Sprawdzenie formatu czasu/daty
-                        if dictionary_true[index].time_format is not None:
-                            try:
-                                datetime.datetime.strptime(cell, dictionary_true[index].time_format)
-                            except ValueError:
-                                raise ValueError(
-                                    f"Value in column {column} does not match the time format in dictionary_file ({dictionary_true[index].time_format}).")
+                            int(cell)
+                        except ValueError:
+                            error_messages.append(f"Value in column {cell} is not an integer.")
+                    elif expected_type == "DOUBLE":
+                        try:
+                            float(cell)
+                        except ValueError:
+                            error_messages.append(f"Value in column {cell} is not a float.")
+                    elif expected_type == "bool":
+                        if cell.lower() not in ["true", "false"]:
+                            error_messages.append(f"Value in column {cell} is not a boolean.")
+                    elif expected_type == "STRING":
+                        pass  # wszystko jest dozwolone
+
+                    # Sprawdzenie formatu czasu/daty
+                    if columns[column_name].time_format is not None:
+                        try:
+                            datetime.datetime.strptime(cell, columns[column_name].time_format)
+                        except ValueError:
+                            error_messages.append(
+                                f"Value in column {cell} does not match the time format in dictionary_file ({columns[column_name].time_format}).")
+
+        if error_messages:  # jeśli lista błędów nie jest pusta, to rzuć wyjątek z listą błędów
+            raise ValueError('\n'.join(error_messages))
+
