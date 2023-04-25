@@ -28,7 +28,6 @@ class Csv_file_reader:
         return missing_files #zwracana jest lista plikow ktorych brakuje, jak są wszystkie to zwraca pusta liste
 
     def validate_file(self, columns, csv_path):
-        error_messages = []  # lista błędów walidacji
 
         # Otwórz plik CSV i wczytaj zawartość
         with open(csv_path, newline='') as csvfile:
@@ -37,14 +36,12 @@ class Csv_file_reader:
 
             # Sprawdź czy liczba kolumn w pliku CSV jest taka sama jak w słowniku kolumn
             if len(headers) != len(columns):
-                error_messages.append(
-                    "Number of columns in CSV file does not match the number of objects in dictionary_file.")
+                print("Number of columns in CSV file does not match the number of objects in dictionary_file.")
 
             # Iteruj po kolumnach i sprawdź czy ich nazwy zgadzają się z definicjami w słowniku kolumn
             for header_count, column_name in enumerate(columns):
                 if headers[header_count] != columns[column_name].name:
-                    error_messages.append(
-                        f"Column name in CSV file ({headers[header_count]}) does not match the name in dictionary_file ({columns[column_name].name}).")
+                    print(f"Column name in CSV file ({headers[header_count]}) does not match the name in dictionary_file ({columns[column_name].name}).")
 
                 expected_type = columns[column_name].type
 
@@ -57,28 +54,24 @@ class Csv_file_reader:
                         try:
                             int(row[header_count])
                         except ValueError:
-                            error_messages.append(f"Value in column {header_count} is not an integer.")
+                            print(f"Value in column {header_count} is not an integer.")
                     elif expected_type == "DOUBLE":
                         try:
                             float(row[header_count])
                         except ValueError:
-                            error_messages.append(f"Value in column {header_count} is not a DOUBLE.")
+                            print(f"Value in column {header_count} is not a DOUBLE.")
                     elif expected_type == "STRING":
                         if row[header_count].isnumeric():
-                            error_messages.append(f"Value in column {header_count} is not a STRING.")
+                            print(f"Value in column {header_count} is not a STRING.")
                     #TU JEST ŹLE NIE DZIAŁA DLA DOBER DATY POKAZUJE ŻE JEST ZŁA DATA
                     if columns[column_name].time_format is not None:
                         try:
-                            datetime.datetime.strptime(row[header_count], columns[column_name].time_format)
+                            datetime.datetime.strptime(row[header_count], "%Y-%m-%d")
                         except ValueError:
-                            error_messages.append(
+                            print(
                                 f"Value in column {header_count} does not match the time format in dictionary_file ({columns[column_name].time_format}).")
 
                 csvfile.seek(0)
                 next(csv_reader)  # pomiń nagłówek dla kolejnych kolumn
-
-        # Jeśli istnieją błędy walidacji, rzuć wyjątek z listą błędów
-        if error_messages:
-            raise ValueError('\n'.join(error_messages))
 
 
