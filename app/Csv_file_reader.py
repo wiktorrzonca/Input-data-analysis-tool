@@ -40,36 +40,43 @@ class Csv_file_reader:
 
             # Iteruj po kolumnach i sprawdź czy ich nazwy zgadzają się z definicjami w słowniku kolumn
             for header_count, column_name in enumerate(columns):
+
+                if header_count > len(headers) - 1:
+                    return
+                
                 if headers[header_count] != columns[column_name].name:
                     print(f"Column name in CSV file ({headers[header_count]}) does not match the name in dictionary_file ({columns[column_name].name}).")
+                    continue
 
                 expected_type = columns[column_name].type
 
+                row_count = 0
                 # Iteruj po każdym wierszu w kolumnie i sprawdź typ wartości oraz poprawność formatu daty, jeśli dotyczy
                 for row in csv_reader:
                     # Wyświetl typ oczekiwany oraz otrzymany dla danej kolumny i wiersza
-                    print(f" type {expected_type}  a jest - {row[header_count]}")
+                    #print(f" type {expected_type}  a jest - {row[header_count]}")
 
                     if expected_type == "INTEGER":
                         try:
                             int(row[header_count])
                         except ValueError:
-                            print(f"Value in column {header_count} is not an integer.")
+                            print(f"Value row: {row_count} column: {header_count} is not an INTIGER.")
                     elif expected_type == "DOUBLE":
                         try:
                             float(row[header_count])
                         except ValueError:
-                            print(f"Value in column {header_count} is not a DOUBLE.")
+                            print(f"Value row: {row_count} column: {header_count} is not a DOUBLE.")
                     elif expected_type == "STRING":
                         if row[header_count].isnumeric():
-                            print(f"Value in column {header_count} is not a STRING.")
+                            print(f"Value row: {row_count} column: {header_count} is not a STRING.")
                     #TU JEST ŹLE NIE DZIAŁA DLA DOBER DATY POKAZUJE ŻE JEST ZŁA DATA
                     if columns[column_name].time_format is not None:
                         try:
                             datetime.datetime.strptime(row[header_count], "%Y-%m-%d")
                         except ValueError:
                             print(
-                                f"Value in column {header_count} does not match the time format in dictionary_file ({columns[column_name].time_format}).")
+                                f"Value row: {row_count} column: {header_count} does not match the time format in dictionary_file ({columns[column_name].time_format}).")
+                    row_count += 1
 
                 csvfile.seek(0)
                 next(csv_reader)  # pomiń nagłówek dla kolejnych kolumn

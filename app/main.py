@@ -12,8 +12,11 @@ if __name__ == "__main__":
     #dda_files_path = input("Podaj ścieżkę do plików: ")          #path to the folder with data files
     #main_file_path = input("Podaj sciezke do głównego pliku: ")  #path to the main json file
 
-    dda_files_path ="C:/Users/Wiktor/Desktop/Input-data-analysis-tool-main/test_files"
-    main_file_path="C:/Users/Wiktor/Desktop/Input-data-analysis-tool-main/test_files/marketdata.json"
+
+    main_folder = '/home/vboxuser/repos/data_analisys_tool/'
+
+    dda_files_path = main_folder + 'test_files'
+    main_file_path= main_folder + "test_files/marketdata.json"
 
     #Tu trzeba spytac ich po czym rozpoznamy ten glowny plik : czy po nazwie czy trzeba do srodka zagladac
 
@@ -35,12 +38,12 @@ if __name__ == "__main__":
             dictonary_sub[sub_name] = sub_file
 
     ###THE PROGRAM UNZIPS THE TAR FOLDER
-    csv_reader = Csv_file_reader("C:/Users/Wiktor/Desktop/Input-data-analysis-tool-main")
+    csv_reader = Csv_file_reader(main_folder)
     csv_reader.extract()
     #for file in csv_reader.check_files():
         #print(file)
     #csv_path = input("Podaj ścieżkę do pliku csv: ")
-    csv_path = "C:/Users/Wiktor/Desktop/Input-data-analysis-tool-main/csv_files\contoption.csv"
+    csv_path = main_folder + "csv_files/contoption_whc.csv"
     ###GOES THROUGH EACH CSV FILE AND DETECS IF THERE ARE ANY POSSIBLE ERRORS
     #for sub_key_name in dictonary_sub:
 
