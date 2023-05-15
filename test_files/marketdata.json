@@ -277,6 +277,10 @@
             "obfuscation_app_id": "4393"
         },
         {
+            "name": "trader_cds_price"
+
+        },
+        {
             "name": "eq_rt_pr",
             "file_pattern": "eq_rt_pr_@DATE@@EXT@",
             "file_pattern_date": "yyyy-MM-dd",

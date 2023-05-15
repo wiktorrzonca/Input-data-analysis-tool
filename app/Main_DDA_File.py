@@ -4,8 +4,8 @@ import json
 
 #Main DDA file is being serched for while initializing Main_DDA_File object
 class Main_DDA_File:
-    def __init__(self, dda_files_path, main_file_path,):
-        self.file_path = main_file_path
+    def __init__(self, dda_files_path,):
+        self.file_path = dda_files_path + '/marketdata.json'
         self.dda_files_path = dda_files_path
 
     #Mam wrazenie ze aktualnie ta funkcja nie ma sensu bo bierze sciezke do folderu i pliku i zwraca to samo
