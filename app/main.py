@@ -10,11 +10,11 @@ if __name__ == "__main__":
     #main_dda_file = sys.argv[1]
 
 
-    main_folder = '/home/vboxuser/repos/data_analisys_tool'
+    main_folder = 'C:/Users/micha/PycharmProjects/inputDataAnalysysTool/Input-data-analysis-tool'
 
     dda_files_path = main_folder + '/test_files/'
     main_file_path= main_folder + '/test_files/marketdata.json'
-    csv_files_path = main_folder + '/csv_files/'
+    csv_files_path = main_folder + '/csv_files/dameged csv files/5 errors + 6 errors/'
 
     #Tu trzeba spytac ich po czym rozpoznamy ten glowny plik : czy po nazwie czy trzeba do srodka zagladac
 
@@ -45,4 +45,7 @@ if __name__ == "__main__":
     ###THE PROGRAM OUTPUTS THE LOG
     for log in errorLogs:
         print("Raport for file: " + log)
-        errorLogs[log].displayReport()
+        if errorLogs[log] is not None:
+            errorLogs[log].displayReport()
+        else:
+            print("No report available for this file.")

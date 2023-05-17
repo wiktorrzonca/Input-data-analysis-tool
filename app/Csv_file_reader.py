@@ -34,7 +34,6 @@ class Csv_file_reader:
         with open(self.filePath, newline='') as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=',', quotechar='"')
             headers = next(csv_reader)  # wczytaj pierwszy wiersz, który zawiera nagłówki kolumn
-
             # Sprawdź czy liczba kolumn w pliku CSV jest taka sama jak w słowniku kolumn
             if len(headers) != len(ddaFile):
                 self.errorLog.addWarning(f"File contains: {len(headers)} columns, expected: {len(ddaFile)}")
@@ -42,7 +41,7 @@ class Csv_file_reader:
 
             # Iteruj po kolumnach i sprawdź czy ich nazwy zgadzają się z definicjami w słowniku kolumn
             for header_count, column_name in enumerate(ddaFile):
-
+                print('2')
                 if header_count > len(headers) - 1:
                     return
                 
@@ -107,6 +106,7 @@ class Csv_file_reader:
 
                 csvfile.seek(0)
                 next(csv_reader)  # pomiń nagłówek dla kolejnych kolumn
+
         return self.errorLog
 
 
