@@ -62,17 +62,17 @@ class Csv_file_reader:
                         try:
                             int(row[header_count])
                         except ValueError:
-                            self.errorLog.addError(f"Value row: {row_count} column: {header_count} is not an INTIGER.")
+                            self.errorLog.addError(f"Value row: {row_count} column: {header_count} is not an INTIGER, as it should.")
                             #print(f"Value row: {row_count} column: {header_count} is not an INTIGER.")
                     elif expected_type == "DOUBLE":
                         try:
                             float(row[header_count])
                         except ValueError:
-                            self.errorLog.addError(f"Value row: {row_count} column: {header_count} is not an INTIGER.")
+                            self.errorLog.addError(f"Value row: {row_count} column: {header_count} is not an DOUBLE, as it should.")
                             #print(f"Value row: {row_count} column: {header_count} is not a DOUBLE.")
                     elif expected_type == "STRING":
                         if row[header_count].isnumeric():
-                            self.errorLog.addError(f"Value row: {row_count} column: {header_count} is not an INTIGER.")
+                            self.errorLog.addError(f"Value row: {row_count} column: {header_count} is not an STRING, as it should.")
                             #print(f"Value row: {row_count} column: {header_count} is not a STRING.")
                     #TU JEST ŹLE NIE DZIAŁA DLA DOBER DATY POKAZUJE ŻE JEST ZŁA DATA
                     elif expected_type == "DATE" or expected_type == "TIMESTAMP":

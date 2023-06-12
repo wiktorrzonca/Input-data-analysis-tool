@@ -1,0 +1,42 @@
+Warnings:
+Errors:
+Value row: 12 column: 0 is not an STRING, as it should.
+Value row: 0 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 1 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 2 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 3 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 4 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 5 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 6 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 7 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 8 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 9 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 10 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 11 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 12 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 13 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 14 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 15 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 16 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 17 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 18 column: 1 does not match the time format (DD-MMM-YYYY) in DDA file .
+Value row: 12 column: 2 is not an DOUBLE, as it should.
+Value row: 12 column: 3 is not an DOUBLE, as it should.
+Value row: 12 column: 4 is not an DOUBLE, as it should.
+Value row: 12 column: 5 is not an INTIGER, as it should.
+Value row: 12 column: 6 is not an INTIGER, as it should.
+Value row: 12 column: 7 does not match the time format (YYYY-MM-DD) in DDA file .
+Value row: 12 column: 8 is not an STRING, as it should.
+Value row: 12 column: 9 is not an DOUBLE, as it should.
+Value row: 12 column: 10 is not an DOUBLE, as it should.
+Value row: 12 column: 11 is not an DOUBLE, as it should.
+Value row: 12 column: 12 is not an DOUBLE, as it should.
+Value row: 12 column: 13 is not an DOUBLE, as it should.
+Value row: 12 column: 14 is not an DOUBLE, as it should.
+Value row: 12 column: 15 is not an DOUBLE, as it should.
+Value row: 12 column: 16 is not an DOUBLE, as it should.
+Value row: 12 column: 17 is not an DOUBLE, as it should.
+Value row: 12 column: 18 is not an STRING, as it should.
+Value row: 12 column: 19 is not an INTIGER, as it should.
+Value row: 12 column: 20 is not an DOUBLE, as it should.
+Value row: 12 column: 21 is not an DOUBLE, as it should.

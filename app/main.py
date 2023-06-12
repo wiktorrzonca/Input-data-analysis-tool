@@ -6,15 +6,15 @@ import os
 
 if __name__ == "__main__":
     ###THE PROGRAM MUST ASK USER FOR INPUT FILE LOCATION
-    #dda_files_path = sys.argv[0]    #Chcieli zeby mozna bylo moc podawac sciezke jako argument
-    #main_dda_file = sys.argv[1]
+    main_folder = sys.argv[1]    #Chcieli zeby mozna bylo moc podawac sciezke jako argument
+    #main_dda_file = sys.argv[0]
 
 
-    main_folder = '/home/vboxuser/repos/data_analisys_tool'
+    #main_folder = '/home/vboxuser/repos/data_analisys_tool'
 
-    dda_files_path = main_folder + '/test_files/'
-    main_file_path= main_folder + '/test_files/marketdata.json'
-    csv_files_path = main_folder + '/csv_files/'
+    dda_files_path = main_folder + '\\test_files\\'
+    main_file_path= main_folder + '\\test_files\\marketdata.json'
+    csv_files_path = main_folder + '\\csv_files\\'
 
     #Tu trzeba spytac ich po czym rozpoznamy ten glowny plik : czy po nazwie czy trzeba do srodka zagladac
 
@@ -46,3 +46,4 @@ if __name__ == "__main__":
     for log in errorLogs:
         print("Raport for file: " + log)
         errorLogs[log].displayReport()
+        errorLogs[log].saveToFile()
